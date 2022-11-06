@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Source Serif Pro", serif;
+  src: url("../font/source-serif/SourceSerifPro-ExtraLight.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Poppins", sans-serif;
+  src: url("../font/poppins/Poppins-Thin.ttf") format("ttf");
+}
