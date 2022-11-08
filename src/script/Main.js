@@ -3,6 +3,7 @@ import "../style/index.css"; // My CSS
 import tippy from "tippy.js"; // Tippy.js
 import "tippy.js/dist/tippy.css"; // Tippy.js
 import "tippy.js/animations/scale.css"; // Tippy.js
+import "tippy.js/themes/light.css"; // Tippy.js
 import "particles.js/particles.js"; // Particle JS
 import Typed from "typed.js"; // Typed JS
 import "./CustomElm.js"; // My Custom Element
@@ -12,15 +13,17 @@ import Feature from "./Feature.js"; // Sort Data
 
 function Main() {
   // Tooltip Animation
-  tippy("[data-tippy-content]", {
+  const tippyOptions = {
+    theme: "",
     placement: "right",
     duration: 0,
     delay: [500, 0],
     offset: [0, 15],
-  });
+  };
+  tippy("[data-tippy-content]", tippyOptions);
 
   // Particle Animation
-  window.particlesJS("particles-jumbotron", {
+  const particleOptions = {
     particles: {
       number: {
         value: 40,
@@ -30,7 +33,7 @@ function Main() {
         },
       },
       color: {
-        value: "#000",
+        value: "#000000",
       },
       shape: {
         type: "circle",
@@ -127,14 +130,15 @@ function Main() {
       },
     },
     retina_detect: true,
-  });
+  };
+  window.particlesJS("particles-jumbotron", particleOptions);
 
   // Typing Animastion
   new Typed("me-main #heading-typed", {
     strings: [
-      `Memakai <span class="text-myBlue">masker</span>`,
-      `Mencuci <span class="text-myBlue">tangan</span>`,
-      `Menjaga <span class="text-myBlue">jarak</span>`,
+      "Memakai <span class=\"text-myblue\">masker</span>",
+      "Mencuci <span class=\"text-myblue\">tangan</span>",
+      "Menjaga <span class=\"text-myblue\">jarak</span>",
     ],
     typeSpeed: 80,
     backSpeed: 40,
@@ -158,16 +162,57 @@ function Main() {
   });
 
   // Dark Mode
-  MyGlobal.inputDarkMode.addEventListener("click", () => {
-    if (MyGlobal.inputDarkMode.checked) {
-      MyGlobal.html.classList.add("dark");
-      MyGlobal.iconDarkMode.classList.remove("fa-sun");
-      MyGlobal.iconDarkMode.classList.add("fa-moon");
-    } else {
-      MyGlobal.html.classList.remove("dark");
-      MyGlobal.iconDarkMode.classList.remove("fa-moon");
-      MyGlobal.iconDarkMode.classList.add("fa-sun");
+  const onDark = () => {
+    MyGlobal.html.classList.add("dark");
+    MyGlobal.iconDarkMode.forEach((elm) => {
+      elm.classList.remove("fa-sun");
+      elm.classList.add("fa-moon");
+    });
+    particleOptions.particles.color.value = "#FFFFFF";
+    window.particlesJS("particles-jumbotron", particleOptions);
+    tippyOptions.theme = "light";
+    tippy("[data-tippy-content]", tippyOptions);
+  };
+  const onLight = () => {
+    MyGlobal.html.classList.remove("dark");
+    MyGlobal.iconDarkMode.forEach((elm) => {
+      elm.classList.remove("fa-moon");
+      elm.classList.add("fa-sun");
+    });
+    particleOptions.particles.color.value = "#000000";
+    window.particlesJS("particles-jumbotron", particleOptions);
+    tippyOptions.theme = "";
+    tippy("[data-tippy-content]", tippyOptions);
+  };
+
+  const onloadDarkMode = () => {
+    if (localStorage.getItem("darkmode") == null) {
+      localStorage.setItem("darkmode", JSON.stringify({ value: false }));
     }
+    const getDarkMode = JSON.parse(localStorage.getItem("darkmode"));
+    if (getDarkMode.value) {
+      onDark();
+      MyGlobal.inputDarkMode.forEach((elm) => {
+        elm.checked = true;
+      });
+    } else {
+      onLight();
+      MyGlobal.inputDarkMode.forEach((elm) => {
+        elm.checked = false;
+      });
+    }
+  };
+  onloadDarkMode();
+  MyGlobal.inputDarkMode.forEach((elm) => {
+    elm.addEventListener("click", () => {
+      if (elm.checked) {
+        onDark();
+        localStorage.setItem("darkmode", JSON.stringify({ value: true }));
+      } else {
+        onLight();
+        localStorage.setItem("darkmode", JSON.stringify({ value: false }));
+      }
+    });
   });
 
   // Ajax
@@ -180,7 +225,7 @@ function Main() {
     val.addEventListener("click", () => {
       MyGlobal.getAllBtnSort.forEach((btn) => {
         const arw = btn.querySelector("#arrow");
-        if (btn.getAttribute("data-name") != val.getAttribute("data-name")) {
+        if (btn.getAttribute("data-name") !== val.getAttribute("data-name")) {
           arw.removeAttribute("data-sort");
           arw.removeAttribute("class");
         }
@@ -190,8 +235,7 @@ function Main() {
       const arrow = val.querySelector("#arrow");
 
       arrow.removeAttribute("class");
-      if (!arrow.hasAttribute("data-sort"))
-        arrow.setAttribute("data-sort", "up");
+      if (!arrow.hasAttribute("data-sort")) arrow.setAttribute("data-sort", "up");
 
       arrow.getAttribute("data-sort") == "up"
         ? MyGlobal.arrowUpDown(arrow, true)

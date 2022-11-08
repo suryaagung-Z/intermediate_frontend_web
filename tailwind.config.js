@@ -9,13 +9,15 @@ module.exports = {
       },
       backgroundColor: {
         mydark: "rgba(24,27,33, 1)",
+        myblue: "#40AAEB",
       },
       colors: {
         mydark: "rgba(24,27,33, 1)",
         mydark04: "rgba(24,27,33, 0.4)",
         mydark05: "rgba(24,27,33, 0.5)",
         mydark005: "rgba(24,27,33, 0.05)",
-        myBlue: "#40AAEB",
+        mydark08: "rgba(24,27,33, 0.8)",
+        myblue: "#40AAEB",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
@@ -30,6 +32,11 @@ module.exports = {
       spacing: {
         full200: "200%",
       },
+      transitionProperty: {
+        forbg: "background-color",
+        forcolor: "color",
+        forbordercolor: "border-color",
+      },
       zIndex: {
         min1: "-1",
       },
@@ -40,6 +47,6 @@ module.exports = {
   },
   plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
   variants: {
-    scrollbar: ["rounded"],
+    scrollbar: ["rounded", "dark"],
   },
 };

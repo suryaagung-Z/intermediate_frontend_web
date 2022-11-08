@@ -3,13 +3,13 @@ class MyGlobal {
 
   static core = document.querySelector("me-main #core");
 
-  static meNav = document.querySelector("me-nav");
+  static meNav = document.querySelector("nav");
 
-  static inputDarkMode = this.meNav.querySelector(
-    "#button-darkmode input#darkmode"
+  static inputDarkMode = this.meNav.querySelectorAll(
+    "#button-darkmode input#darkmode",
   );
 
-  static iconDarkMode = this.meNav.querySelector("#button-darkmode label i");
+  static iconDarkMode = this.meNav.querySelectorAll("#button-darkmode label i");
 
   static hamburger = this.meNav.querySelector("button#hamburger");
 
@@ -24,13 +24,13 @@ class MyGlobal {
   static getAllBtnSort = this.table.querySelectorAll("span#sort");
 
   static arrowNegara = this.table.querySelector(
-    '#sort[data-name="negara"] #arrow'
+    "#sort[data-name=\"negara\"] #arrow",
   );
 
   static search = this.core.querySelector("#box-search input#search");
 
   static lastUpdate = this.core.querySelector(
-    "#box-lastupdate span#lastupdate"
+    "#box-lastupdate span#lastupdate",
   );
 
   static year = document.querySelector("me-footer span#year");
@@ -41,7 +41,7 @@ class MyGlobal {
         "fa-solid",
         "fa-arrow-up",
         "text-xs",
-        "pointer-events-none"
+        "pointer-events-none",
       );
       arrow.setAttribute("data-sort", "down");
     } else {
@@ -49,7 +49,7 @@ class MyGlobal {
         "fa-solid",
         "fa-arrow-down",
         "text-xs",
-        "pointer-events-none"
+        "pointer-events-none",
       );
       arrow.setAttribute("data-sort", "up");
     }

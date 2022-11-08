@@ -1,4 +1,4 @@
-// import DataCovid from "./DataCovid.js"; // Data Covid
+import numeral from "numeral";
 import MyGlobal from "./MyGlobal.js"; // Element Selector
 
 class Feature {
@@ -62,16 +62,22 @@ class Feature {
         `
             <tr class="my-table-row">
                 <td class="my-table-data" id="negara">
-                  <span class="sm:hidden">Negara : </span> <span id="value">${val.name}</span>
+                  <span class="sm:hidden">Negara : </span> <span id="value">${
+  val.name
+}</span>
                 </td>
                 <td class="my-table-data">
-                  <span class="sm:hidden">Kasus : </span> <span id="value">${val.confirmed.value}</span>
+                  <span class="sm:hidden">Kasus : </span> <span id="value">${numeral(
+    val.confirmed.value,
+  ).format()}</span>
                 </td>
                 <td class="my-table-data">
-                  <span class="sm:hidden">Meninggal : </span> <span id="value">${val.deaths.value}</span>
+                  <span class="sm:hidden">Meninggal : </span> <span id="value">${numeral(
+    val.deaths.value,
+  ).format()}</span>
                 </td>
             </tr>
-        `
+        `,
       );
     });
   }

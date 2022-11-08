@@ -28,7 +28,7 @@ class DataCovid {
           hour12: true,
         };
         MyGlobal.lastUpdate.innerHTML = new Date(
-          data.lastUpdate
+          data.lastUpdate,
         ).toLocaleTimeString("id", options);
       })
       .catch((err) => {
@@ -69,6 +69,7 @@ class DataCovid {
       .then((val) => {
         val.name = countrie;
         if (val.error != undefined) {
+          console.log(`"${countrie}" not found in API`);
           val.confirmed = val.deaths = val.recovered = { value: "0" };
           val.lastUpdate = "";
         }
