@@ -3,11 +3,46 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Source Serif Pro", serif;
-  src: url("../font/source-serif/SourceSerifPro-ExtraLight.ttf") format("ttf");
+  font-family: "Poppins", sans-serif;
+  src: url("../font/poppins/Poppins-Regular.ttf") format("ttf");
 }
 
-@font-face {
-  font-family: "Poppins", sans-serif;
-  src: url("../font/poppins/Poppins-Thin.ttf") format("ttf");
+.icon-menu-nav {
+  @apply duration-300 hover:opacity-100;
+}
+
+.menu-nav {
+  @apply block h-full w-full py-2;
+}
+
+.line-hamburger {
+  @apply block h-0.5 bg-mydark duration-300;
+}
+
+.icon-medsos {
+  @apply opacity-40 duration-300 hover:opacity-100;
+}
+
+.my-table-head {
+  @apply p-2.5 sticky top-0 bg-gray-300;
+}
+
+.my-table-head-value {
+  @apply cursor-pointer select-none whitespace-nowrap;
+}
+
+.my-table-row {
+  @apply border-b-2 border-gray-300 hover:bg-gray-300 flex flex-col sm:table-row;
+}
+
+.my-table-data {
+  @apply p-2.5 flex justify-between sm:table-cell;
+}
+
+.text-dark-to-white {
+  @apply dark:text-white;
+}
+
+.border-dark-to-white {
+  @apply dark:border-gray-600;
 }

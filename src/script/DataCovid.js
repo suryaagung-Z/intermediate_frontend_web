@@ -27,7 +27,9 @@ class DataCovid {
           minute: "numeric",
           hour12: true,
         };
-        MyGlobal.lastUpdate.innerHTML = new Date(data.lastUpdate).toLocaleTimeString("id", options);
+        MyGlobal.lastUpdate.innerHTML = new Date(
+          data.lastUpdate
+        ).toLocaleTimeString("id", options);
       })
       .catch((err) => {
         console.log(err);

@@ -131,7 +131,11 @@ function Main() {
 
   // Typing Animastion
   new Typed("me-main #heading-typed", {
-    strings: ["Memakai masker", "Mencuci tangan", "Menjaga jarak"],
+    strings: [
+      `Memakai <span class="text-myBlue">masker</span>`,
+      `Mencuci <span class="text-myBlue">tangan</span>`,
+      `Menjaga <span class="text-myBlue">jarak</span>`,
+    ],
     typeSpeed: 80,
     backSpeed: 40,
     loop: true,
@@ -151,6 +155,19 @@ function Main() {
       menuToggle.forEach((v) => MyGlobal.menuSm.classList.remove(v));
       bgMenuToggle.forEach((v) => MyGlobal.bgMenuSM.classList.remove(v));
     });
+  });
+
+  // Dark Mode
+  MyGlobal.inputDarkMode.addEventListener("click", () => {
+    if (MyGlobal.inputDarkMode.checked) {
+      MyGlobal.html.classList.add("dark");
+      MyGlobal.iconDarkMode.classList.remove("fa-sun");
+      MyGlobal.iconDarkMode.classList.add("fa-moon");
+    } else {
+      MyGlobal.html.classList.remove("dark");
+      MyGlobal.iconDarkMode.classList.remove("fa-moon");
+      MyGlobal.iconDarkMode.classList.add("fa-sun");
+    }
   });
 
   // Ajax
@@ -173,24 +190,33 @@ function Main() {
       const arrow = val.querySelector("#arrow");
 
       arrow.removeAttribute("class");
-      if (!arrow.hasAttribute("data-sort")) arrow.setAttribute("data-sort", "up");
+      if (!arrow.hasAttribute("data-sort"))
+        arrow.setAttribute("data-sort", "up");
 
-      (arrow.getAttribute("data-sort") == "up") ? MyGlobal.arrowUpDown(arrow, true) : MyGlobal.arrowUpDown(arrow, false);
+      arrow.getAttribute("data-sort") == "up"
+        ? MyGlobal.arrowUpDown(arrow, true)
+        : MyGlobal.arrowUpDown(arrow, false);
 
       if (dataName == "negara") {
         MyGlobal.tBody.innerHTML = "";
         new DataCovid().getCountries((vals) => {
-          (arrow.getAttribute("data-sort") == "up") ? new Feature(vals).sortNegara("down") : new Feature(vals).sortNegara("up");
+          arrow.getAttribute("data-sort") == "up"
+            ? new Feature(vals).sortNegara("down")
+            : new Feature(vals).sortNegara("up");
         });
       } else if (dataName == "kasus") {
         MyGlobal.tBody.innerHTML = "";
         new DataCovid().getCountries((vals) => {
-          (arrow.getAttribute("data-sort") == "up") ? new Feature(vals).sortKasus("down") : new Feature(vals).sortKasus("up");
+          arrow.getAttribute("data-sort") == "up"
+            ? new Feature(vals).sortKasus("down")
+            : new Feature(vals).sortKasus("up");
         });
       } else if (dataName == "meninggal") {
         MyGlobal.tBody.innerHTML = "";
         new DataCovid().getCountries((vals) => {
-          (arrow.getAttribute("data-sort") == "up") ? new Feature(vals).sortMeninggal("down") : new Feature(vals).sortMeninggal("up");
+          arrow.getAttribute("data-sort") == "up"
+            ? new Feature(vals).sortMeninggal("down")
+            : new Feature(vals).sortMeninggal("up");
         });
       }
     });
@@ -200,15 +226,20 @@ function Main() {
   let timer = null;
   MyGlobal.search.addEventListener("keyup", () => {
     const val = MyGlobal.search.value;
-    const data = MyGlobal.tBody.querySelectorAll("tr");
+    const tr = MyGlobal.tBody.querySelectorAll("tr");
     clearTimeout(timer);
     timer = setTimeout(() => {
-      data.forEach((elm) => {
-        val.toLowerCase();
+      tr.forEach((elm) => {
         elm.classList.add("!hidden");
-        if (val.trim() == "") elm.classList.remove("!hidden");
-        const dataName = elm.querySelector("#negara").innerText.toLowerCase();
-        if (dataName.includes(val.trim())) elm.classList.replace("!hidden", "flex");
+        if (val.trim() == "") {
+          elm.classList.remove("!hidden");
+        }
+        const dataName = elm
+          .querySelector("#negara span#value")
+          .innerText.toLowerCase();
+        if (dataName.includes(val.toLowerCase().trim())) {
+          elm.classList.remove("!hidden");
+        }
       });
     }, 500);
   });

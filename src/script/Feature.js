@@ -57,19 +57,22 @@ class Feature {
   appendChildTbodyTable(vals) {
     MyGlobal.tBody.innerHTML = "";
     vals.forEach((val) => {
-      MyGlobal.tBody.insertAdjacentHTML("beforeend", `
-            <tr class="border-b-2 border-gray-300 hover:bg-gray-300 flex flex-col sm:table-row">
-                <td class="p-2.5 flex justify-between sm:table-cell" id="negara">
-                  <span class="sm:hidden">Negara : </span>${val.name}
+      MyGlobal.tBody.insertAdjacentHTML(
+        "beforeend",
+        `
+            <tr class="my-table-row">
+                <td class="my-table-data" id="negara">
+                  <span class="sm:hidden">Negara : </span> <span id="value">${val.name}</span>
                 </td>
-                <td class="p-2.5 flex justify-between sm:table-cell">
-                  <span class="sm:hidden">Kasus : </span>${val.confirmed.value}
+                <td class="my-table-data">
+                  <span class="sm:hidden">Kasus : </span> <span id="value">${val.confirmed.value}</span>
                 </td>
-                <td class="p-2.5 flex justify-between sm:table-cell">
-                  <span class="sm:hidden">Meninggal : </span>${val.deaths.value}
+                <td class="my-table-data">
+                  <span class="sm:hidden">Meninggal : </span> <span id="value">${val.deaths.value}</span>
                 </td>
             </tr>
-        `);
+        `
+      );
     });
   }
 }
